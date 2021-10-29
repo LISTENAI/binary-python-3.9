@@ -15,7 +15,7 @@ export default <Binary>{
   env: {},
 
   async version() {
-    const { stdout } = await execFile(join(this.binaryDir, 'python'), ['--version']);
-    return stdout.split('\n')[0].trim();
+    const { stdout } = await execFile(join(this.binaryDir, 'python'), ['-m', 'pip', '--version']);
+    return stdout.trim();
   }
 };
