@@ -1,4 +1,4 @@
-import * as download from 'download';
+import download from 'download';
 import { rm } from 'fs/promises';
 import { platform } from 'os';
 import { join } from 'path';

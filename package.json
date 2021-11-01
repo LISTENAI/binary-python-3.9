@@ -19,7 +19,7 @@
   ],
   "license": "UNLICENSED",
   "dependencies": {
-    "@binary/type": "^1.0.1",
+    "@binary/type": "^1.0.3",
     "download": "^8.0.0"
   },
   "devDependencies": {
