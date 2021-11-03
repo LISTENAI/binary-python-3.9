@@ -1,22 +1,16 @@
 import download from 'download';
 import { rm } from 'fs/promises';
-import { platform } from 'os';
+import decompress from '@xingrz/decompress';
 import { join } from 'path';
 import { symlink } from 'fs/promises';
-import binary from './index';
+import binary, { HOME } from './index';
 
-const PREFIX = 'https://cdn.iflyos.cn/public/lisa-binary/python3/';
+const PACKAGE = 'python3';
+const VERSION = '3.10.0';
 
-const SUFFIX = (() => {
-  switch (platform()) {
-    case 'win32': return 'pc-windows-msvc-shared';
-    case 'darwin': return 'apple-darwin';
-    default: return 'unknown-linux-gnu';
-  }
-})();
+const NAME = `${PACKAGE}-${VERSION}-${process.platform}_${process.arch}.tar.zst`;
 
-const NAME = `cpython-3.10.0-x86_64-${SUFFIX}-install_only-20211017T1616.tar.gz`;
-const HOME = join(__dirname, '..', 'binary');
+const URL = `https://cdn.iflyos.cn/public/lisa-binary/${PACKAGE}/${NAME}`;
 
 (async () => {
 
@@ -25,11 +19,10 @@ const HOME = join(__dirname, '..', 'binary');
   } catch (e) {
   }
 
-  await download(`${PREFIX}${NAME}`, HOME, {
-    extract: true,
-  });
+  const archive = await download(URL);
+  await decompress(archive, HOME);
 
-  if (platform() != 'win32') {
+  if (process.platform != 'win32') {
     await symlink('python3', join(binary.binaryDir, 'python'));
   }
 
