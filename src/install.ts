@@ -1,6 +1,5 @@
-import download from 'download';
+import download from '@xingrz/download2';
 import { rm } from 'fs/promises';
-import decompress from '@xingrz/decompress';
 import { join } from 'path';
 import { symlink } from 'fs/promises';
 import binary, { HOME } from './index';
@@ -19,8 +18,9 @@ const URL = `https://cdn.iflyos.cn/public/lisa-binary/${PACKAGE}/${NAME}`;
   } catch (e) {
   }
 
-  const archive = await download(URL);
-  await decompress(archive, HOME);
+  await download(URL, HOME, {
+    extract: true,
+  });
 
   if (process.platform != 'win32') {
     await symlink('python3', join(binary.binaryDir, 'python'));
