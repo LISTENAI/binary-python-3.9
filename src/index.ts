@@ -10,7 +10,7 @@ export const HOME = join(__dirname, '..', 'binary');
 export default <Binary>{
   homeDir: HOME,
 
-  binaryDir: join(HOME, 'bin'),
+  binaryDir: process.platform == 'win32' ? HOME : join(HOME, 'bin'),
 
   async version() {
     const { stdout } = await execFile(join(this.binaryDir, 'python'), ['-m', 'pip', '--version']);
