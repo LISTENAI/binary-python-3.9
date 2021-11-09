@@ -13,7 +13,7 @@ export default <Binary>{
   binaryDir: process.platform == 'win32' ? HOME : join(HOME, 'bin'),
 
   async version() {
-    const { stdout } = await execFile(join(this.binaryDir, 'python'), ['-m', 'pip', '--version']);
-    return stdout.trim();
+    const { stdout } = await execFile(join(this.binaryDir, 'python'), ['--version']);
+    return stdout.split('\n')[0].trim();
   }
 };
