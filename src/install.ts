@@ -4,8 +4,8 @@ import { join } from 'path';
 import { symlink } from 'fs/promises';
 import binary, { HOME } from './index';
 
-const PACKAGE = 'python3';
-const VERSION = '3.10.0';
+const PACKAGE = 'python-3.9';
+const VERSION = '3.9.7';
 
 const NAME = `${PACKAGE}-${VERSION}-${process.platform}_${process.arch}.tar.zst`;
 
